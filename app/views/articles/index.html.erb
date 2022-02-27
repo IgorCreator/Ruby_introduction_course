@@ -1,6 +1,29 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Articles</h1>
+<h1>Articles listing page</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articles.each do |article| %>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.description %></td>
+      <td>placeholder</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<hr>
 
 <div id="articles">
   <% @articles.each do |article| %>
@@ -11,4 +34,4 @@
   <% end %>
 </div>
 
-<%= link_to "New article", new_article_path %>
+<%= link_to "Create a new article", new_article_path %>
