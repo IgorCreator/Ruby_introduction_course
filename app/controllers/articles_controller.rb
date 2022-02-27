@@ -1,10 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
 
-  ##
-  # My own implementation
-  ##
-
   # GET /articles/1 or /articles/1.json
   def show
     # @article = Article.find(params[:id])
@@ -20,6 +16,11 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+   # GET /articles/1/edit
+   def edit
+    @article = Article.find(params[:id])
+   end
+
   # POST /articles or /articles.json
   def create
     @article = Article.new(params.require(:article).permit(:title, :description))
@@ -29,6 +30,7 @@ class ArticlesController < ApplicationController
     else 
       render :new
     end
+
       # respond_to do |format|
       #   if @article.save
       #     format.html { redirect_to article_url(@article), notice: "Article was successfully created." }
@@ -40,21 +42,25 @@ class ArticlesController < ApplicationController
       # end
   end
 
-  # GET /articles/1/edit
-  def edit
-  end
-
   # PATCH/PUT /articles/1 or /articles/1.json
   def update
-    respond_to do |format|
-      if @article.update(article_params)
-        format.html { redirect_to article_url(@article), notice: "Article was successfully updated." }
-        format.json { render :show, status: :ok, location: @article }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
+    @article = Article.find(params[:id])
+    if @article.update(params.require(:article).permit(:title, :description))
+      flash[:notice] = "Article was successfully updated."
+      redirect_to @article
+    else 
+      render :edit
     end
+
+    # respond_to do |format|
+    #   if @article.update(article_params)
+    #     format.html { redirect_to article_url(@article), notice: "Article was successfully updated." }
+    #     format.json { render :show, status: :ok, location: @article }
+    #   else
+    #     format.html { render :edit, status: :unprocessable_entity }
+    #     format.json { render json: @article.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /articles/1 or /articles/1.json
