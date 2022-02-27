@@ -33,3 +33,7 @@
     display: block;
     margin: 0 auto;
   }
+
+  td {
+    font-size: 14px;
+  }

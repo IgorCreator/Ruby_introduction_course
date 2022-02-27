@@ -2,7 +2,6 @@
 
 <%# <%= render "form", article: @article %>
 
-
 <% if @article.errors.any? %>
   <h2>The following errors prevented the article from being saved</h2>
   <ul>
@@ -11,6 +10,7 @@
     <% end %>
   </ul>
 <% end %>
+
 <%= form_with(model: @article, local: true) do |f| %>
 
   <p>
@@ -27,3 +27,7 @@
     <%= f.submit %>
   </p>
 <% end %> 
+
+<div>
+  <%= link_to "Back to articles", articles_path %>
+</div>
